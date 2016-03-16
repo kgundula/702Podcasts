@@ -31,7 +31,7 @@
                 android:layout_marginRight="@dimen/spacing_small" />
 
             <TextView
-                android:id="@+id/podcast_description"
+                android:id="@+id/podcast_pub_date"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@{podcast.itemPubDate}"
