@@ -10,7 +10,7 @@ import android.view.View;
 import defensivethinking.co.za.a702podcasts.R;
 
 /**
- * Created by Profusion on 2016-02-16.
+ * Created by kgundula on 2016-02-16.
  */
 public class RecylerViewDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;

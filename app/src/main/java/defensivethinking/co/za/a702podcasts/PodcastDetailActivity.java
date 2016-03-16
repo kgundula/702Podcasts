@@ -18,16 +18,12 @@ public class PodcastDetailActivity extends AppCompatActivity {
     public String description = "";
     public String url = "";
 
-    TextView podcast_title;
+    TextView podcast_title,podcast_description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_podcast_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitle();
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if ( getIntent().getExtras() != null ) {
 
@@ -37,8 +33,15 @@ public class PodcastDetailActivity extends AppCompatActivity {
 
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         podcast_title = (TextView) findViewById(R.id.podcast_title);
-        podcast_title.setText(title);
+        podcast_description = (TextView) findViewById(R.id.podcast_description);
+        podcast_description.setText(description);
 
 
     }

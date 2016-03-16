@@ -1,7 +1,7 @@
 package defensivethinking.co.za.a702podcasts.utility;
 
 /**
- * Created by Profusion on 2015-12-08.
+ * Created by kgundula on 2015-12-08.
  */
 public class Utility {
 

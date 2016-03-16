@@ -12,7 +12,7 @@ import java.net.URL;
 import defensivethinking.co.za.a702podcasts.MainActivity;
 
 /**
- * Created by Profusion on 2015-12-14.
+ * Created by kgundula on 2015-12-14.
  */
 public class PodcastService extends IntentService {
 
@@ -80,10 +80,5 @@ public class PodcastService extends IntentService {
         broadcastIntent.putExtra(RESPONSE_STRING, dataXmlStr);
         broadcastIntent.putExtra(STATUS, STATUS_FINISHED);
         sendBroadcast(broadcastIntent);
-
-
     }
-
-
-
 }

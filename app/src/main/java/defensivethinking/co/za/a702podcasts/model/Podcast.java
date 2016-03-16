@@ -6,7 +6,7 @@ import android.databinding.Bindable;
 import defensivethinking.co.za.a702podcasts.BR;
 
 /**
- * Created by Profusion on 2015-12-14.
+ * Created by kgundula on 2015-12-14.
  */
 public class Podcast  extends BaseObservable {
 

@@ -14,11 +14,48 @@ import defensivethinking.co.za.a702podcasts.R;
 import defensivethinking.co.za.a702podcasts.model.Podcast;
 
 /**
- * Created by Profusion on 2015-12-28.
+ * Created by kgundula on 2015-12-28.
  */
 public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.BindingHolder>  {
 
     private List<Podcast> mPodcasts;
+
+    /*
+        When not using DataBinding Library your BindingHolder will look like the commented code below.
+
+        public static class BindingHolder extends RecyclerView.ViewHolder  {
+
+            public TextView podcast_name;
+            public TextView podcast_pub_date;
+
+            BindingHolder(View itemView) {
+                super(itemView);
+
+                podcast_name = (TextView) itemView.findViewById(R.id.podcast_name);
+                podcast_pub_date = (TextView)itemView.findViewById(R.id.podcast_pub_date);
+            }
+
+        }
+
+        @Override
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.podcast, parent, false);
+            return new BindingHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder holder, int position) {
+
+            final Podcast podcast = mPodcasts.get(position);
+
+            if ( podcast != null ) {
+                holder.podcast_name.setText(podcast.getItemTitle());
+                holder.podcast_description.setText(podcast.getItemPubDate());
+
+             }
+
+        }
+    */
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;

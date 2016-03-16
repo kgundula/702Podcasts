@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String url = "";
     List<Podcast> podcastList = new ArrayList<Podcast>();
     private PodcastIntentServiceReceiver podcastIntentServiceReceiver;
-    //private ActivityMainBinding binding;
+    private ActivityMainBinding binding;
     private Podcast podcast = new Podcast();
     private PodcastAdapter mPodcastAdapter;
 
@@ -48,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        /*
+        *  When not using DataBinding you would set Activity Layout this way.
+        *
+        * setContentView(R.layout.activity_main);
+        *
+        */
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         url = Utility.URL;
 
         context = getApplicationContext();
