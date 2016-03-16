@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">702 Podcasts</string>
     <string name="podcast_play">play podcast</string>
-    <string name="title_activity_podast_detail">PodastDetailActivity</string>
+    <string name="title_activity_podast_detail">Podast Detail Activity</string>
+    <string name="currently_playing_song">Now Playing</string>
+
+    <string name="play_item">Play item</string>
+    <string name="play_pause">play or pause</string>
+    <string name="skip_next">skip to next</string>
+    <string name="skip_prev">skip to previous</string>
+
 </resources>
