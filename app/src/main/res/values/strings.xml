@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">702 Podcasts</string>
+    <string name="podcast_play">play podcast</string>
+    <string name="title_activity_podast_detail">PodastDetailActivity</string>
+</resources>

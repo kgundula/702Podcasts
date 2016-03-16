@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="podcast_text_headline_dark">#deffffff</color>
+    <color name="podcast_text_title_dark">#deffffff</color>
+    <color name="podcast_text_subhead_dark">#deffffff</color>
+    <color name="podcast_text_body2_dark">#deffffff</color>
+    <color name="podcast_text_body1_dark">#deffffff</color>
+    <color name="podcast_text_caption_dark">#8affffff</color>
+    <color name="podcast_text_menu_dark">#deffffff</color>
+    <color name="podcast_text_button_dark">#deffffff</color>
+
+    <color name="podcast_text_primary_dark">#ffffffff</color>
+    <color name="podcast_text_secondary_dark">#b3ffffff</color>
+    <color name="podcast_text_hint_dark">#4dffffff</color>
+    <color name="podcast_text_disabled_dark">#4dffffff</color>
+
+
+    <color name="podcast_text_headline_light">#de000000</color>
+    <color name="podcast_text_title_light">#de000000</color>
+    <color name="podcast_text_subhead_light">#de000000</color>
+    <color name="podcast_text_body2_light">#de000000</color>
+    <color name="podcast_text_body1_light">#de000000</color>
+    <color name="podcast_text_caption_light">#8a000000</color>
+    <color name="podcast_text_menu_light">#de000000</color>
+    <color name="podcast_text_button_light">#de000000</color>
+
+    <color name="podcast_text_primary_light">#de000000</color>
+    <color name="podcast_text_secondary_light">#8a000000</color>
+    <color name="podcast_text_hint_light">#61000000</color>
+    <color name="podcast_text_disabled_light">#61000000</color>
+
+
+    <style name="podcast_TextAppearance" parent="@android:style/TextAppearance"/>
+
+
+    <style name="podcast_TextAppearance.Headline">
+        <item name="android:textSize">24sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Regular.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Headline.Dark">
+        <item name="android:textColor">@color/podcast_text_headline_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Headline.Light">
+        <item name="android:textColor">@color/podcast_text_headline_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Medium.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Title.Dark">
+        <item name="android:textColor">@color/podcast_text_title_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Title.Light">
+        <item name="android:textColor">@color/podcast_text_title_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Subhead">
+        <item name="android:textSize">16sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Regular.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Subhead.Dark">
+        <item name="android:textColor">@color/podcast_text_subhead_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Subhead.Light">
+        <item name="android:textColor">@color/podcast_text_subhead_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Medium.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Body2.Dark">
+        <item name="android:textColor">@color/podcast_text_body2_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Body2.Light">
+        <item name="android:textColor">@color/podcast_text_body2_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Regular.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Body1.Dark">
+        <item name="android:textColor">@color/podcast_text_body1_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Body1.Light">
+        <item name="android:textColor">@color/podcast_text_body1_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Regular.ttf"</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Caption.Dark">
+        <item name="android:textColor">@color/podcast_text_caption_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Caption.Light">
+        <item name="android:textColor">@color/podcast_text_caption_light</item>
+    </style>
+
+
+    <style name="podcast_TextAppearance.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="podcast_fontPath">"podcast/Roboto-Medium.ttf"</item>
+        <item name="podcast_textAllCaps">true</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Button.Dark">
+        <item name="android:textColor">@color/podcast_text_button_dark</item>
+    </style>
+
+    <style name="podcast_TextAppearance.Button.Light">
+        <item name="android:textColor">@color/podcast_text_button_light</item>
+    </style>
+
+</resources>

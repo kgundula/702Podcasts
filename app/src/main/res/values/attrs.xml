@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Podcast">
+        <attr name="podcast_colorBackground" format="reference|color"/>
+        <attr name="podcast_colorBackgroundInverse" format="reference|color"/>
+        <attr name="podcast_colorError" format="reference|color"/>
+        <attr name="podcast_colorDisabled" format="reference|color"/>
+
+        <attr name="podcast_dividerColor" format="reference|color"/>
+        <attr name="podcast_edgeEffectColor" format="color|reference"/>
+        <attr name="podcast_iconColor" format="reference|color"/>
+
+        <attr name="podcast_tint" format="color|reference"/>
+
+        <attr name="podcast_rippleColor" format="reference|color"/>
+        <attr name="podcast_rippleColorInverse" format="reference|color"/>
+        <attr name="podcast_rippleHotspot" format="boolean"/>
+        <attr name="podcast_rippleStyle" format="enum">
+            <enum name="over" value="0"/>
+            <enum name="background" value="1"/>
+            <enum name="borderless" value="2"/>
+        </attr>
+
+        <attr name="podcast_inAnimation" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="fade" value="1"/>
+            <enum name="pop" value="2"/>
+            <enum name="fly" value="3"/>
+            <enum name="brightnessSaturationFade" value="4"/>
+            <enum name="progressWidth" value="5"/>
+        </attr>
+
+        <attr name="podcast_outAnimation" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="fade" value="1"/>
+            <enum name="pop" value="2"/>
+            <enum name="fly" value="3"/>
+            <enum name="brightnessSaturationFade" value="4"/>
+            <enum name="progressWidth" value="5"/>
+        </attr>
+
+        <attr name="podcast_debugMode" format="boolean"/>
+
+        <attr name="podcast_touchMargin" format="dimension"/>
+        <attr name="podcast_touchMarginLeft" format="dimension"/>
+        <attr name="podcast_touchMarginTop" format="dimension"/>
+        <attr name="podcast_touchMarginRight" format="dimension"/>
+        <attr name="podcast_touchMarginBottom" format="dimension"/>
+
+        <attr name="podcast_insetColor" format="color"/>
+        <attr name="podcast_inset" format="dimension"/>
+        <attr name="podcast_insetLeft" format="dimension"/>
+        <attr name="podcast_insetTop" format="dimension"/>
+        <attr name="podcast_insetRight" format="dimension"/>
+        <attr name="podcast_insetBottom" format="dimension"/>
+
+        <attr name="podcast_textAppearanceHeadline" format="reference"/>
+        <attr name="podcast_textAppearanceTitle" format="reference"/>
+        <attr name="podcast_textAppearanceSubhead" format="reference"/>
+        <attr name="podcast_textAppearanceBody2" format="reference"/>
+        <attr name="podcast_textAppearanceBody1" format="reference"/>
+        <attr name="podcast_textAppearanceCaption" format="reference"/>
+        <attr name="podcast_textAppearanceButton" format="reference"/>
+
+        <attr name="podcast_textAppearanceHeadlineInverse" format="reference"/>
+        <attr name="podcast_textAppearanceTitleInverse" format="reference"/>
+        <attr name="podcast_textAppearanceSubheadInverse" format="reference"/>
+        <attr name="podcast_textAppearanceBody2Inverse" format="reference"/>
+        <attr name="podcast_textAppearanceBody1Inverse" format="reference"/>
+        <attr name="podcast_textAppearanceCaptionInverse" format="reference"/>
+        <attr name="podcast_textAppearanceButtonInverse" format="reference"/>
+    </declare-styleable>
+
+    <attr name="podcast_src" format="reference"/>
+    <attr name="podcast_elevation" format="dimension"/>
+    <attr name="podcast_cornerRadius" format="dimension"/>
+    <attr name="podcast_textAllCaps" format="boolean"/>
+    <attr name="podcast_overScroll" format="enum">
+        <enum name="always" value="0"/>
+        <enum name="ifContentScrolls" value="1"/>
+        <enum name="never" value="2"/>
+    </attr>
+
+    <attr name="podcast_headerTint" format="reference|color"/>
+    <attr name="podcast_headerMinHeight" format="dimension"/>
+    <attr name="podcast_headerParallax" format="float"/>
+
+    <attr name="podcast_fontPath" format="string"/>
+
+    <attr name="podcast_anchor" format="reference"/>
+    <attr name="podcast_anchorGravity" format="enum">
+        <enum name="top" value="0x00000030"/>
+        <enum name="bottom" value="0x00000050"/>
+        <enum name="left" value="0x00000003"/>
+        <enum name="right" value="0x00000005"/>
+        <enum name="start" value="0x00800003"/>
+        <enum name="end" value="0x00800005"/>
+        <enum name="center" value="0x00000011"/>
+        <enum name="center_horizontal" value="0x00000001"/>
+        <enum name="center_vertical" value="0x00000010"/>
+    </attr>
+
+    <attr name="podcast_fabStyle" format="reference"/>
+    <declare-styleable name="FloatingActionButton">
+        <attr name="podcast_cornerRadius"/>
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <declare-styleable name="SVGActionButton">
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="ImageActionButton">
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="Button">
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_textAllCaps"/>
+        <attr name="android:textAppearance"/>
+        <attr name="podcast_touchMargin"/>
+        <attr name="podcast_touchMarginLeft"/>
+        <attr name="podcast_touchMarginTop"/>
+        <attr name="podcast_touchMarginRight"/>
+        <attr name="podcast_touchMarginBottom"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="TextView">
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_textAllCaps"/>
+        <attr name="android:textAppearance"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <attr name="podcast_svgViewStyle" format="reference"/>
+    <declare-styleable name="SVGView">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_src"/>
+        <attr name="podcast_touchMargin"/>
+        <attr name="podcast_touchMarginLeft"/>
+        <attr name="podcast_touchMarginTop"/>
+        <attr name="podcast_touchMarginRight"/>
+        <attr name="podcast_touchMarginBottom"/>
+    </declare-styleable>
+
+    <attr name="podcast_frameLayoutStyle" format="reference"/>
+    <declare-styleable name="FrameLayout">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="FrameLayout_Layout">
+        <attr name="podcast_anchor"/>
+        <attr name="podcast_anchorGravity"/>
+    </declare-styleable>
+
+    <attr name="podcast_gridLayoutStyle" format="reference"/>
+    <declare-styleable name="GridLayout">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <attr name="podcast_relativeLayoutStyle" format="reference"/>
+    <declare-styleable name="RelativeLayout">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="RelativeLayout_Layout">
+        <attr name="podcast_anchor"/>
+        <attr name="podcast_anchorGravity"/>
+    </declare-styleable>
+
+    <attr name="podcast_linearLayoutStyle" format="reference"/>
+    <declare-styleable name="LinearLayout">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <attr name="podcast_drawerLayoutStyle" format="reference"/>
+    <declare-styleable name="DrawerLayout">
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_cornerRadius"/>
+    </declare-styleable>
+
+    <attr name="podcast_toolbarStyle" format="reference"/>
+    <declare-styleable name="Toolbar">
+        <attr name="podcast_elevation"/>
+        <attr name="android:background"/>
+        <attr name="android:text"/>
+        <attr name="podcast_icon" format="reference"/>
+    </declare-styleable>
+
+    <attr name="podcast_imageViewStyle" format="reference"/>
+    <declare-styleable name="ImageView">
+        <attr name="android:src"/>
+        <attr name="podcast_src"/>
+        <attr name="podcast_rippleColor"/>
+        <attr name="podcast_elevation"/>
+        <attr name="podcast_touchMargin"/>
+        <attr name="podcast_touchMarginLeft"/>
+        <attr name="podcast_touchMarginTop"/>
+        <attr name="podcast_touchMarginRight"/>
+        <attr name="podcast_touchMarginBottom"/>
+        <attr name="podcast_cornerRadius"/>
+        <attr name="android:enabled"/>
+    </declare-styleable>
+
+    <attr name="podcast_dividerStyle" format="reference"/>
+    <declare-styleable name="Divider">
+        <attr name="android:background"/>
+    </declare-styleable>
+
+    <attr name="podcast_progressBarStyle" format="reference"/>
+    <declare-styleable name="ProgressBar">
+        <attr name="podcast_progressStyle" format="enum">
+            <enum name="bar_determinate" value="0"/>
+            <enum name="bar_indeterminate" value="1"/>
+            <enum name="bar_query" value="2"/>
+            <enum name="circular_determinate" value="3"/>
+            <enum name="circular_indeterminate" value="4"/>
+        </attr>
+        <attr name="podcast_barWidth" format="dimension"/>
+    </declare-styleable>
+
+    <attr name="podcast_navigationViewStyle" format="reference"/>
+    <declare-styleable name="NavigationView">
+
+    </declare-styleable>
+
+    <attr name="podcast_cardViewStyle" format="reference"/>
+
+    <attr name="podcast_editTextStyle" format="reference"/>
+    <declare-styleable name="EditText">
+        <attr name="podcast_textAllCaps"/>
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_minCharacters" format="integer"/>
+        <attr name="podcast_maxCharacters" format="integer"/>
+        <attr name="podcast_pattern" format="string"/>
+        <attr name="podcast_errorMessage" format="string"/>
+        <attr name="podcast_floatingLabel" format="boolean"/>
+        <attr name="android:textAppearance"/>
+        <attr name="podcast_matchingView" format="reference"/>
+    </declare-styleable>
+
+    <attr name="podcast_spinnerStyle" format="reference"/>
+
+    <attr name="podcast_pagerTabStripStyle" format="reference"/>
+    <declare-styleable name="PagerTabStrip">
+        <attr name="podcast_indicatorWidth" format="dimension"/>
+        <attr name="podcast_fixedTabs" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="TextAppearance">
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_textAllCaps"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollView">
+        <attr name="podcast_overScroll"/>
+        <attr name="podcast_headerTint"/>
+        <attr name="podcast_headerMinHeight"/>
+        <attr name="podcast_headerParallax"/>
+    </declare-styleable>
+
+    <attr name="podcast_horizontalScrollViewStyle" format="reference"/>
+    <declare-styleable name="HorizontalScrollView">
+        <attr name="podcast_overScroll"/>
+    </declare-styleable>
+
+    <attr name="podcast_viewPagerStyle" format="reference"/>
+    <declare-styleable name="ViewPager">
+        <attr name="podcast_overScroll"/>
+    </declare-styleable>
+
+    <attr name="podcast_recyclerViewStyle"/>
+    <declare-styleable name="RecyclerView">
+        <attr name="podcast_headerTint"/>
+        <attr name="podcast_headerMinHeight"/>
+        <attr name="podcast_headerParallax"/>
+    </declare-styleable>
+
+    <attr name="podcast_checkBoxStyle"/>
+    <declare-styleable name="CheckBox">
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_textAllCaps"/>
+        <attr name="android:textAppearance"/>
+    </declare-styleable>
+
+    <attr name="podcast_radioButtonStyle"/>
+    <declare-styleable name="RadioButton">
+        <attr name="podcast_fontPath"/>
+        <attr name="podcast_textAllCaps"/>
+        <attr name="android:textAppearance"/>
+    </declare-styleable>
+
+    <attr name="podcast_editMenuTheme" format="reference"/>
+    <attr name="podcast_snackbarTheme" format="reference"/>
+
+</resources>

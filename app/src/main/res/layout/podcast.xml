@@ -1,0 +1,53 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="defensivethinking.co.za.a702podcasts.model.Podcast" />
+        <variable
+            name="podcast"
+            type="Podcast" />
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9">
+            <TextView
+                android:id="@+id/podcast_name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@{podcast.itemTitle}"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="@dimen/spacing_small"
+                android:layout_marginRight="@dimen/spacing_small" />
+
+            <TextView
+                android:id="@+id/podcast_description"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@{podcast.itemPubDate}"
+                android:textSize="@dimen/text_size_small"
+                android:layout_marginRight="@dimen/spacing_small"
+                android:layout_marginLeft="@dimen/spacing_small" />
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/playPodcast"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparent"
+            android:src="@drawable/ic_play_circle_filled_black_24dp"
+            android:contentDescription="@string/podcast_play"
+            android:layout_weight="0.1"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_marginLeft="@dimen/spacing_small" />
+    </LinearLayout>
+</layout>
