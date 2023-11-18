@@ -1,7 +1,7 @@
 package defensivethinking.co.za.a702podcasts.model;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 import defensivethinking.co.za.a702podcasts.BR;
 
