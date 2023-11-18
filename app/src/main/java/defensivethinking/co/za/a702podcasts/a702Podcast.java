@@ -1,3 +1,5 @@
+package defensivethinking.co.za.a702podcasts;
+
 import android.app.Application;
 import android.os.StrictMode;
 
@@ -17,18 +19,16 @@ public class a702Podcast extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //enabledStrictMode();
+        enabledStrictMode();
         //LeakCanary.install(this);
     }
 
     private void enabledStrictMode() {
-        if (SDK_INT >= GINGERBREAD) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
-                    .detectAll() //
-                    .penaltyLog() //
-                    .penaltyDeath() //
-                    .build());
-        }
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
+                .detectAll() //
+                .penaltyLog() //
+                .penaltyDeath() //
+                .build());
     }
 
     public List<Podcast> getPodcasts() {

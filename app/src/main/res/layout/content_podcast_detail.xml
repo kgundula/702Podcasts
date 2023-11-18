@@ -45,11 +45,11 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:layout_alignBottom="@+id/content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_play_circle_filled_black_24dp"
         android:contentDescription="@string/play_pause"
         android:tintMode="src_in"
-        android:tint="@color/colorAccent"/>
+        app:tint="@color/colorAccent"/>
 
 </RelativeLayout>
