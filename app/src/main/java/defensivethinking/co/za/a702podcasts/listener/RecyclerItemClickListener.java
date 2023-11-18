@@ -1,10 +1,11 @@
 package defensivethinking.co.za.a702podcasts.listener;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by kgundula on 2016-02-16.

@@ -4,14 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.databinding.DataBindingUtil;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 
@@ -37,10 +39,7 @@ import defensivethinking.co.za.a702podcasts.utility.XMLDOMParser;
 
 public class MainActivity extends AppCompatActivity {
     String url = "";
-    List<Podcast> podcastList = new ArrayList<Podcast>();
-    private PodcastIntentServiceReceiver podcastIntentServiceReceiver;
-    private ActivityMainBinding binding;
-    private Podcast podcast = new Podcast();
+    List<Podcast> podcastList = new ArrayList<>();
     private PodcastAdapter mPodcastAdapter;
 
     protected RecyclerView mPodcastRecyclerView;
@@ -54,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         * setContentView(R.layout.activity_main);
         *
         */
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        defensivethinking.co.za.a702podcasts.databinding.ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         url = Utility.URL;
 
         context = getApplicationContext();
-        mPodcastRecyclerView = (RecyclerView) findViewById(R.id.podcast_recyler_view);
+        mPodcastRecyclerView = findViewById(R.id.podcast_recyler_view);
         mPodcastRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPodcastRecyclerView.addItemDecoration(new RecylerViewDividerItemDecoration(context));
         mPodcastRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         IntentFilter filter = new IntentFilter(PodcastIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
-        podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
+        PodcastIntentServiceReceiver podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
         registerReceiver(podcastIntentServiceReceiver, filter);
 
         if (!"".equals(url)) {
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
             String dataXmlStr = intent.getStringExtra(PodcastService.RESPONSE_STRING);
             int responseStatus = intent.getIntExtra(PodcastService.STATUS, 0);
-            //Log.i("Ygritte", dataXmlStr);
+            Log.i("Ygritte", dataXmlStr);
             if ( responseStatus == 1  ) {
                 XMLDOMParser parser = new XMLDOMParser();
                 InputStream stream;
@@ -140,40 +139,43 @@ public class MainActivity extends AppCompatActivity {
                 stream =  new ByteArrayInputStream( dataXmlStr.getBytes() );
                 Document doc = parser.getDocument(stream);
 
-                NodeList nl = doc.getElementsByTagName("item");
+                if (doc != null) {
+                    NodeList nl = doc.getElementsByTagName("item");
 
-                for (int i=0; i<nl.getLength(); i++) {
-                    Element element = (Element) nl.item(i);
-                    Node node = nl.item(i);
+                    for (int i = 0; i < nl.getLength(); i++) {
+                        Element element = (Element) nl.item(i);
+                        Node node = nl.item(i);
 
-                    String title = element.getElementsByTagName("title").item(0).getTextContent();
-                    String description = element.getElementsByTagName("description").item(0).getTextContent();
-                    String pubDate = element.getElementsByTagName("pubDate").item(0).getTextContent();
-                    NamedNodeMap attrs = element.getElementsByTagName("enclosure").item(0).getAttributes();
-                    String podcast_url = "";
-                    String podcast_type = "";
-                    for (int y = 0; y < attrs.getLength(); y++ ) {
-                        Node attr = attrs.item(y);
-                        if (attr.getNodeName().equalsIgnoreCase("url")) {
-                            podcast_url = attr.getNodeValue();
-                        } else if (attr.getNodeName().equalsIgnoreCase("type")) {
-                            podcast_type = attr.getNodeValue();
+                        String title = element.getElementsByTagName("title").item(0).getTextContent();
+                        String description = element.getElementsByTagName("description").item(0).getTextContent();
+                        String pubDate = element.getElementsByTagName("pubDate").item(0).getTextContent();
+                        NamedNodeMap attrs = element.getElementsByTagName("enclosure").item(0).getAttributes();
+                        String podcast_url = "";
+                        String podcast_type = "";
+                        for (int y = 0; y < attrs.getLength(); y++) {
+                            Node attr = attrs.item(y);
+                            if (attr.getNodeName().equalsIgnoreCase("url")) {
+                                podcast_url = attr.getNodeValue();
+                            } else if (attr.getNodeName().equalsIgnoreCase("type")) {
+                                podcast_type = attr.getNodeValue();
+                            }
                         }
+                        Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
+                        podcastList.add(podcast);
+
+                        if (mPodcastAdapter == null) {
+                            mPodcastAdapter = new PodcastAdapter(podcastList);
+                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).setPodcasts(podcastList);
+                        } else {
+                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).getPodcasts().clear();
+                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).getPodcasts().addAll(podcastList);
+                            mPodcastAdapter.notifyDataSetChanged();
+                        }
+
+
+                        mPodcastRecyclerView.setAdapter(mPodcastAdapter);
+
                     }
-                    Podcast podcast = new Podcast(title,description,pubDate,podcast_type,podcast_url);
-                    podcastList.add(podcast);
-
-                    if (mPodcastAdapter == null) {
-                        mPodcastAdapter = new PodcastAdapter(podcastList);
-                        //((a702Podcast) getApplication()).setPodcasts(podcastList);
-                    } else {
-                        //((a702Podcast) getApplication()).getPodcasts().clear();
-                        //((a702Podcast) getApplication()).getPodcasts().addAll(podcastList);
-                        mPodcastAdapter.notifyDataSetChanged();
-                    }
-
-                    mPodcastRecyclerView.setAdapter(mPodcastAdapter);
-
                 }
 
             }

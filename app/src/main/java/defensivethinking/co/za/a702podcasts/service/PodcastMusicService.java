@@ -3,7 +3,8 @@ package defensivethinking.co.za.a702podcasts.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by kgundula on 16/03/16.
