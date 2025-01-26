@@ -9,14 +9,6 @@ import java.util.List;
  */
 public class Podcasts {
 
-    private static String title;
-    private static String link;
-    private static String description;
-    private static String language;
-    private static String copyright;
-    private static String lastBuildDate;
-    private static String ttl;
-    private static String webMaster;
 
     //@XmlElement
     List<Podcast> podcastList = new ArrayList<>();
