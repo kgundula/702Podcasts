@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  security-events: write
+
 jobs:
   build:
 
@@ -24,3 +27,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Run Code Scanning
+      run: ./gradlew codeScanning
