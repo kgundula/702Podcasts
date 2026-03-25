@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import android.util.Log;
 
 import defensivethinking.co.za.a702podcasts.MainActivity;
 
@@ -43,6 +44,11 @@ public class PodcastService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         String url = intent.getStringExtra("url");
+        if (url == null || !url.startsWith("https://www.omnycontent.com/")) {
+            Log.w(podcast, "Ignoring intent with untrusted URL: " + url);
+            return;
+        }
+
         String dataXmlStr = "";
         BufferedReader reader = null;
 
