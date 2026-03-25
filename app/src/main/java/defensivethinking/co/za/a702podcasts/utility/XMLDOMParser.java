@@ -25,6 +25,16 @@ public class XMLDOMParser {
         Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setXIncludeAware(false);
+            factory.setExpandEntityReferences(false);
+        } catch (ParserConfigurationException e) {
+            Log.e("Error: ", "ParserConfigurationException setting features: " + e.getMessage());
+            return null;
+        }
+        try {
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inputSource = new InputSource(inputStream);
             document = db.parse(inputSource);

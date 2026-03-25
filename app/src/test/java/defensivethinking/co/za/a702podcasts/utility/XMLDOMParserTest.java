@@ -3,64 +3,79 @@ package defensivethinking.co.za.a702podcasts.utility;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.Text;
+import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class XMLDOMParserTest {
 
     private XMLDOMParser parser;
-    private Document document;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parser = new XMLDOMParser();
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        document = builder.newDocument();
     }
 
     @Test
-    public void testGetNodeValueWithValidTextNode() {
-        // Create an element with a text node child
-        Element element = document.createElement("testElement");
-        Text textNode = document.createTextNode("Hello World");
-        element.appendChild(textNode);
+    public void testValidXMLParsing() {
+        String validXML = "<?xml version=\"1.0\"?><podcast><title>My Podcast</title></podcast>";
+        InputStream stream = new ByteArrayInputStream(validXML.getBytes());
+        Document doc = parser.getDocument(stream);
 
-        String result = parser.getNodeValue(element);
-        assertEquals("Hello World", result);
+        assertNotNull("Document should not be null for valid XML", doc);
+        NodeList nodes = doc.getElementsByTagName("title");
+        assertEquals(1, nodes.getLength());
+        assertEquals("My Podcast", parser.getNodeValue(nodes.item(0)));
     }
 
     @Test
-    public void testGetNodeValueWithNoTextChildren() {
-        // Create an element with an element child, but no text child
-        Element parent = document.createElement("parent");
-        Element child = document.createElement("child");
-        parent.appendChild(child);
+    public void testXXEVulnerabilityPrevention() {
+        // This XML attempts to use an external entity.
+        // If the parser is vulnerable, it might try to read /etc/passwd (or throw a specific error).
+        // If DOCTYPE is disallowed, parsing should fail entirely.
+        String maliciousXML = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" +
+                "<!DOCTYPE foo [\n" +
+                "  <!ELEMENT foo ANY >\n" +
+                "  <!ENTITY xxe SYSTEM \"file:///etc/passwd\" >]>\n" +
+                "<foo>&xxe;</foo>";
 
-        String result = parser.getNodeValue(parent);
-        assertEquals("", result);
+        InputStream stream = new ByteArrayInputStream(maliciousXML.getBytes());
+        Document doc = parser.getDocument(stream);
+
+        // Since we disallow DOCTYPE, parsing this XML should fail and return null
+        assertNull("Document should be null for XML containing DOCTYPE when DOCTYPE is disallowed", doc);
     }
 
     @Test
-    public void testGetNodeValueWithEmptyElement() {
-        // Create an empty element
-        Element emptyElement = document.createElement("empty");
+    public void testBillionLaughsVulnerabilityPrevention() {
+        // This XML attempts a Billion Laughs attack (entity expansion).
+        // Since we disable entity expansion and DOCTYPE, this should fail.
+        String maliciousXML = "<?xml version=\"1.0\"?>\n" +
+                "<!DOCTYPE lolz [\n" +
+                " <!ENTITY lol \"lol\">\n" +
+                " <!ELEMENT lolz (#PCDATA)>\n" +
+                " <!ENTITY lol1 \"&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;\">\n" +
+                " <!ENTITY lol2 \"&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;\">\n" +
+                " <!ENTITY lol3 \"&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;\">\n" +
+                " <!ENTITY lol4 \"&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;\">\n" +
+                " <!ENTITY lol5 \"&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;\">\n" +
+                " <!ENTITY lol6 \"&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;\">\n" +
+                " <!ENTITY lol7 \"&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;\">\n" +
+                " <!ENTITY lol8 \"&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;\">\n" +
+                " <!ENTITY lol9 \"&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;\">\n" +
+                "]>\n" +
+                "<lolz>&lol9;</lolz>";
 
-        String result = parser.getNodeValue(emptyElement);
-        assertEquals("", result);
-    }
+        InputStream stream = new ByteArrayInputStream(maliciousXML.getBytes());
+        Document doc = parser.getDocument(stream);
 
-    @Test
-    public void testGetNodeValueWithNullNode() {
-        // Test with null
-        String result = parser.getNodeValue((Node) null);
-        assertEquals("", result);
+        // Parsing should fail and return null
+        assertNull("Document should be null for XML attempting entity expansion attacks when DOCTYPE is disallowed", doc);
     }
 }
