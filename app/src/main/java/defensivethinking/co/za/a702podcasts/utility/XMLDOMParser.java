@@ -64,10 +64,16 @@ public class XMLDOMParser {
     }
 
     public String getNodeValue( Node node ) {
+        if (node == null) {
+            return "";
+        }
         NodeList childNodes = node.getChildNodes();
+        if (childNodes == null) {
+            return "";
+        }
         for (int x = 0; x < childNodes.getLength(); x++ ) {
             Node data = childNodes.item(x);
-            if ( data.getNodeType() == Node.TEXT_NODE )
+            if ( data != null && data.getNodeType() == Node.TEXT_NODE )
                 return data.getNodeValue();
         }
         return "";
