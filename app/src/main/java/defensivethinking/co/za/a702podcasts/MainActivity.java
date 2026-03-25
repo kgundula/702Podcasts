@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(PodcastIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
-        registerReceiver(podcastIntentServiceReceiver, filter);
+        ContextCompat.registerReceiver(this, podcastIntentServiceReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         if (!"".equals(url)) {
             startService(createPodcastNetworkIntent(url));
@@ -126,52 +127,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String dataXmlStr = intent.getStringExtra(PodcastService.RESPONSE_STRING);
             int responseStatus = intent.getIntExtra(PodcastService.STATUS, 0);
-            Log.i("Ygritte", dataXmlStr);
+
             if ( responseStatus == 1  ) {
-                XMLDOMParser parser = new XMLDOMParser();
-                InputStream stream;
+                podcastList.clear();
+                podcastList.addAll(Utility.podcastCache);
 
-                stream =  new ByteArrayInputStream( dataXmlStr.getBytes() );
-                Document doc = parser.getDocument(stream);
-
-                if (doc != null) {
-                    NodeList nl = doc.getElementsByTagName("item");
-
-                    for (int i = 0; i < nl.getLength(); i++) {
-                        Element element = (Element) nl.item(i);
-                        Node node = nl.item(i);
-
-                        String title = element.getElementsByTagName("title").item(0).getTextContent();
-                        String description = element.getElementsByTagName("description").item(0).getTextContent();
-                        String pubDate = element.getElementsByTagName("pubDate").item(0).getTextContent();
-                        NamedNodeMap attrs = element.getElementsByTagName("enclosure").item(0).getAttributes();
-                        String podcast_url = "";
-                        String podcast_type = "";
-                        for (int y = 0; y < attrs.getLength(); y++) {
-                            Node attr = attrs.item(y);
-                            if (attr.getNodeName().equalsIgnoreCase("url")) {
-                                podcast_url = attr.getNodeValue();
-                            } else if (attr.getNodeName().equalsIgnoreCase("type")) {
-                                podcast_type = attr.getNodeValue();
-                            }
-                        }
-                        Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
-                        podcastList.add(podcast);
-
-
-                    }
-
-                    if (mPodcastAdapter == null) {
-                        mPodcastAdapter = new PodcastAdapter(podcastList);
-                        mPodcastRecyclerView.setAdapter(mPodcastAdapter);
-                    } else {
-                        mPodcastAdapter.notifyDataSetChanged();
-                    }
+                if (mPodcastAdapter == null) {
+                    mPodcastAdapter = new PodcastAdapter(podcastList);
+                    mPodcastRecyclerView.setAdapter(mPodcastAdapter);
+                } else {
+                    mPodcastAdapter.notifyDataSetChanged();
                 }
             }
         }
     }
-}
 }
