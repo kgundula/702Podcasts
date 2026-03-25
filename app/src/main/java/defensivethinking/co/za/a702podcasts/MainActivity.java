@@ -47,12 +47,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        *  When not using DataBinding you would set Activity Layout this way.
-        *
-        * setContentView(R.layout.activity_main);
-        *
-        */
         defensivethinking.co.za.a702podcasts.databinding.ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         url = Utility.URL;
 
@@ -96,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //unregisterReceiver(podcastIntentServiceReceiver);
     }
 
 
@@ -163,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                         Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
                         podcastList.add(podcast);
 
-                    }
 
                     if (mPodcastAdapter == null) {
                         mPodcastAdapter = new PodcastAdapter(podcastList);
