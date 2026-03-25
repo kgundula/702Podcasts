@@ -157,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                         podcastList.add(podcast);
 
 
+                    }
+
                     if (mPodcastAdapter == null) {
                         mPodcastAdapter = new PodcastAdapter(podcastList);
                         mPodcastRecyclerView.setAdapter(mPodcastAdapter);
