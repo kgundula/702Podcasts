@@ -159,7 +159,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
                         podcastList.add(podcast);
+
+
                     }
+
                     if (mPodcastAdapter == null) {
                         mPodcastAdapter = new PodcastAdapter(podcastList);
                         mPodcastRecyclerView.setAdapter(mPodcastAdapter);

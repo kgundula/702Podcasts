@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     compileSdk 34
     defaultConfig {
         applicationId "defensivethinking.co.za.a702podcasts"
