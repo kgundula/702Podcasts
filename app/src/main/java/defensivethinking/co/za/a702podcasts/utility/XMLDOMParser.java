@@ -24,29 +24,31 @@ public class XMLDOMParser {
     public Document getDocument(InputStream inputStream) {
         Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        
         try {
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-            factory.setXIncludeAware(false);
-            factory.setExpandEntityReferences(false);
-        } catch (ParserConfigurationException e) {
-            Log.e("Error: ", "ParserConfigurationException setting features: " + e.getMessage());
-            return null;
-        }
-        try {
+            // Basic security features, wrapped in blocks to prevent crashes on unsupported devices
+            try {
+                factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            } catch (Exception e) {
+                Log.w("XMLDOMParser", "Feature disallow-doctype-decl not supported");
+            }
+            try {
+                factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            } catch (Exception e) {
+                Log.w("XMLDOMParser", "Feature external-general-entities not supported");
+            }
+            
             DocumentBuilder db = factory.newDocumentBuilder();
             InputSource inputSource = new InputSource(inputStream);
             document = db.parse(inputSource);
 
-        } catch (ParserConfigurationException e) {
-            Log.e("Error: ", e.getMessage());
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            Log.e("XMLDOMParser", "Error parsing XML: " + e.getMessage());
+            e.printStackTrace();
             return null;
-        } catch (SAXException e) {
-            Log.e("Error: ", e.getMessage());
-            return null;
-        } catch (IOException e) {
-            Log.e("Error: ", e.getMessage());
+        } catch (Exception e) {
+            Log.e("XMLDOMParser", "Unexpected error: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
         return document;
