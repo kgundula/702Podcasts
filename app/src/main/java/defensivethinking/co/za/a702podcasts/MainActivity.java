@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        Log.d("MainActivity", "Registering receiver for: " + PodcastIntentServiceReceiver.PROCESS_RESPONSE);
         IntentFilter filter = new IntentFilter(PodcastIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
@@ -129,20 +128,15 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             int responseStatus = intent.getIntExtra(PodcastService.STATUS, 0);
-            Log.d("MainActivity", "Broadcast received, status: " + responseStatus);
 
             if ( responseStatus == 1  ) {
-                Log.d("MainActivity", "Cache size: " + Utility.podcastCache.size());
                 podcastList.clear();
                 podcastList.addAll(Utility.podcastCache);
-                Log.d("MainActivity", "Local list size: " + podcastList.size());
 
                 if (mPodcastAdapter == null) {
-                    Log.d("MainActivity", "Creating new adapter");
                     mPodcastAdapter = new PodcastAdapter(podcastList);
                     mPodcastRecyclerView.setAdapter(mPodcastAdapter);
                 } else {
-                    Log.d("MainActivity", "Notifying adapter");
                     mPodcastAdapter.notifyDataSetChanged();
                 }
             }

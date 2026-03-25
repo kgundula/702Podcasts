@@ -95,7 +95,6 @@ public class PodcastService extends IntentService {
             List<Podcast> podcastList = new ArrayList<>();
             if (doc != null) {
                 NodeList nl = doc.getElementsByTagName("item");
-                Log.d("PodcastService", "Found " + nl.getLength() + " items");
 
                 for (int i = 0; i < nl.getLength(); i++) {
                     Element element = (Element) nl.item(i);
@@ -139,7 +138,6 @@ public class PodcastService extends IntentService {
         broadcastIntent.setPackage(getPackageName()); // Ensure it stays within the app
         // Removed RESPONSE_STRING to avoid TransactionTooLargeException
         broadcastIntent.putExtra(STATUS, STATUS_FINISHED);
-        Log.d("PodcastService", "Sending broadcast to: " + broadcastIntent.getAction());
         sendBroadcast(broadcastIntent);
     }
 }
