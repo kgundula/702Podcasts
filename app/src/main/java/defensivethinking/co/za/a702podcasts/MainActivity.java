@@ -163,18 +163,13 @@ public class MainActivity extends AppCompatActivity {
                         Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
                         podcastList.add(podcast);
 
-                        if (mPodcastAdapter == null) {
-                            mPodcastAdapter = new PodcastAdapter(podcastList);
-                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).setPodcasts(podcastList);
-                        } else {
-                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).getPodcasts().clear();
-                            //((defensivethinking.co.za.a702podcasts.a702Podcast) getApplication()).getPodcasts().addAll(podcastList);
-                            mPodcastAdapter.notifyDataSetChanged();
-                        }
+                    }
 
-
+                    if (mPodcastAdapter == null) {
+                        mPodcastAdapter = new PodcastAdapter(podcastList);
                         mPodcastRecyclerView.setAdapter(mPodcastAdapter);
-
+                    } else {
+                        mPodcastAdapter.notifyDataSetChanged();
                     }
                 }
 
