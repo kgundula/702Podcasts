@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private PodcastAdapter mPodcastAdapter;
 
     protected RecyclerView mPodcastRecyclerView;
+    private PodcastIntentServiceReceiver podcastIntentServiceReceiver;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         IntentFilter filter = new IntentFilter(PodcastIntentServiceReceiver.PROCESS_RESPONSE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
-        PodcastIntentServiceReceiver podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
+        podcastIntentServiceReceiver = new PodcastIntentServiceReceiver();
         registerReceiver(podcastIntentServiceReceiver, filter);
 
         if (!"".equals(url)) {
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (podcastIntentServiceReceiver != null) {
+            unregisterReceiver(podcastIntentServiceReceiver);
+        }
     }
 
 
@@ -156,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
                         Podcast podcast = new Podcast(title, description, pubDate, podcast_type, podcast_url);
                         podcastList.add(podcast);
                     }
-
                     if (mPodcastAdapter == null) {
                         mPodcastAdapter = new PodcastAdapter(podcastList);
                         mPodcastRecyclerView.setAdapter(mPodcastAdapter);
@@ -164,9 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         mPodcastAdapter.notifyDataSetChanged();
                     }
                 }
-
             }
-
         }
     }
 }
