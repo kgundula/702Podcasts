@@ -23,8 +23,6 @@ public class PodcastService extends IntentService {
 
     public static final int STATUS_FINISHED = 1;
     public static final int STATUS_FAILED = 2;
-;
-    public static final String REQUEST_METHOD  = "request_method";
 
 
     public PodcastService() {
