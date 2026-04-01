@@ -69,7 +69,7 @@ public class PodcastService extends IntentService {
             con.setRequestMethod("GET");
             con.connect();
             InputStream inputStream = con.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 return;
             }
