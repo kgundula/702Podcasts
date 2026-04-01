@@ -61,31 +61,28 @@ public class PodcastService extends IntentService {
         }
 
         String dataXmlStr = "";
-        BufferedReader reader = null;
 
         //final String rec = intent.getStringExtra("receiver");
+        HttpURLConnection con = null;
         try {
-            HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+            con = (HttpURLConnection) (new URL(url)).openConnection();
             con.setRequestMethod("GET");
             con.connect();
-            InputStream inputStream = con.getInputStream();
-            StringBuilder buffer = new StringBuilder();
-            if (inputStream == null) {
-                return;
-            }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
-            }
+            try (InputStream inputStream = con.getInputStream();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                StringBuilder buffer = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line).append("\n");
+                }
 
-            if (buffer.length() == 0) {
-                return;
-            }
+                if (buffer.length() == 0) {
+                    return;
+                }
 
-            dataXmlStr = buffer.toString();
-            inputStream.close();
+                dataXmlStr = buffer.toString();
+            }
 
             // Parse the XML here to avoid TransactionTooLargeException in broadcast
             XMLDOMParser parser = new XMLDOMParser();
@@ -130,6 +127,10 @@ public class PodcastService extends IntentService {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.disconnect();
+            }
         }
 
         Intent broadcastIntent = new Intent();
