@@ -43,12 +43,10 @@ public class XMLDOMParser {
             document = db.parse(inputSource);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            Log.e("XMLDOMParser", "Error parsing XML: " + e.getMessage());
-            e.printStackTrace();
+            Log.e("XMLDOMParser", "Error parsing XML", e);
             return null;
         } catch (Exception e) {
-            Log.e("XMLDOMParser", "Unexpected error: " + e.getMessage());
-            e.printStackTrace();
+            Log.e("XMLDOMParser", "Unexpected error", e);
             return null;
         }
         return document;
