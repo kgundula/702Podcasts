@@ -6,11 +6,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockedStatic;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -55,5 +60,27 @@ public class XMLDOMParserTest {
         };
 
         assertNull(parser.getDocument(errorStream));
+    }
+
+    @Test
+    public void testGetNodeAttr() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<item id=\"123\" category=\"podcast\" />";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        Node node = doc.getDocumentElement();
+
+        // Test existing attribute
+        assertEquals("123", parser.getNodeAttr("id", node));
+
+        // Test case-insensitive
+        assertEquals("123", parser.getNodeAttr("ID", node));
+
+        // Test another attribute
+        assertEquals("podcast", parser.getNodeAttr("category", node));
+
+        // Test non-existent attribute
+        assertEquals("", parser.getNodeAttr("nonexistent", node));
     }
 }
