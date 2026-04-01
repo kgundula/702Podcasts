@@ -32,13 +32,37 @@ fun BottomNavigationBar(navController: NavController) {
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { navController.navigate("home") }) {
+        IconButton(onClick = {
+            navController.navigate("home") {
+                launchSingleTop = true
+                restoreState = true
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+            }
+        }) {
             Icon(Icons.Filled.Home, contentDescription = "Home", tint = MaterialTheme.colorScheme.primary)
         }
-        IconButton(onClick = { navController.navigate("search") }) {
+        IconButton(onClick = {
+            navController.navigate("search") {
+                launchSingleTop = true
+                restoreState = true
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+            }
+        }) {
             Icon(Icons.Filled.Search, contentDescription = "Search", tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        IconButton(onClick = { navController.navigate("library") }) {
+        IconButton(onClick = {
+            navController.navigate("library") {
+                launchSingleTop = true
+                restoreState = true
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+            }
+        }) {
             Icon(Icons.Filled.List, contentDescription = "Library", tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
