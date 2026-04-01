@@ -126,11 +126,7 @@ public class PodcastService extends IntentService {
             Log.d("PodcastService", "Cache updated with " + podcastList.size() + " podcasts");
 
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                con.disconnect();
-            }
+            Log.e("PodcastService", "Error handling podcast intent", e);
         }
 
         Intent broadcastIntent = new Intent();
