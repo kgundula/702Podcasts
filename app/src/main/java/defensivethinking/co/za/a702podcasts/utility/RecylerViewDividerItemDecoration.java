@@ -26,6 +26,7 @@ public class RecylerViewDividerItemDecoration extends RecyclerView.ItemDecoratio
         int right = parent.getWidth() - parent.getPaddingRight();
 
         int childCount = parent.getChildCount();
+        int intrinsicHeight = mDivider.getIntrinsicHeight();
 
         for (int i = 0; i < childCount; i++ ) {
             View child = parent.getChildAt(i);
@@ -33,7 +34,7 @@ public class RecylerViewDividerItemDecoration extends RecyclerView.ItemDecoratio
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
 
             int top = child.getBottom() + params.bottomMargin;
-            int bottom = top +mDivider.getIntrinsicHeight();
+            int bottom = top + intrinsicHeight;
 
             mDivider.setBounds(left,top, right, bottom);
             mDivider.draw(c);
