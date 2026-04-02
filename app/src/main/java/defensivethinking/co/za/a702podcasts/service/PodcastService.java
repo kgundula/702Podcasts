@@ -60,20 +60,19 @@ public class PodcastService extends IntentService {
             return;
         }
 
-        try {
-            android.net.Uri parsedUri = android.net.Uri.parse(url);
-            String scheme = parsedUri.getScheme();
-            String host = parsedUri.getHost();
+        android.net.Uri parsedUri = android.net.Uri.parse(url);
+        String scheme = parsedUri.getScheme();
+        String host = parsedUri.getHost();
 
-            if (!"https".equals(scheme) || !"www.omnycontent.com".equals(host)) {
-                Log.w(podcast, "Ignoring intent with untrusted URL: " + url);
-                return;
-            }
-        } catch (Exception e) {
+        if (scheme == null || scheme.isEmpty() || host == null || host.isEmpty()) {
             Log.w(podcast, "Ignoring intent with unparseable URL: " + url);
             return;
         }
 
+        if (!"https".equals(scheme) || !"www.omnycontent.com".equals(host)) {
+            Log.w(podcast, "Ignoring intent with untrusted URL: " + url);
+            return;
+        }
         String dataXmlStr = "";
 
         //final String rec = intent.getStringExtra("receiver");

@@ -28,7 +28,7 @@ public class PodcastServiceTest {
     public void setUp() {
         mockedLog = Mockito.mockStatic(Log.class);
         mockedUri = Mockito.mockStatic(Uri.class);
-        podcastService = new PodcastService();
+        podcastService = Mockito.mock(PodcastService.class, Mockito.CALLS_REAL_METHODS);
         mockIntent = mock(Intent.class);
     }
 
@@ -48,13 +48,15 @@ public class PodcastServiceTest {
         when(mockUri.getHost()).thenReturn("www.omnycontent.com");
         mockedUri.when(() -> Uri.parse(validUrl)).thenReturn(mockUri);
 
-        // We can't fully run onHandleIntent without HTTP, but we can verify it doesn't log the "Ignoring intent" warning
+        // We can't fully run onHandleIntent without HTTP, but we can verify it doesn't log the URL rejection warning
         try {
             // It might throw exception later, we just care it passes the validation
             podcastService.onHandleIntent(mockIntent);
         } catch (Exception e) {}
 
-        mockedLog.verify(() -> Log.w(eq(PodcastService.podcast), anyString()), never());
+        mockedLog.verify(() -> Log.w(
+                eq(PodcastService.podcast),
+                eq("Ignoring intent with untrusted URL: " + validUrl)), never());
     }
 
     @Test
