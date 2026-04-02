@@ -133,10 +133,10 @@ public class XMLDOMParserTest {
         assertNull(parser.getNode(null, nodes));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetNode_NullNodeList() throws Exception {
         XMLDOMParser parser = new XMLDOMParser();
-        parser.getNode("child1", null);
+        assertNull(parser.getNode("child1", null));
     }
 
 }
