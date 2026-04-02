@@ -37,7 +37,7 @@ public class RecylerViewDividerItemDecorationTest {
     }
 
     @Test
-    public void testOnDrawOver_PerformanceBaseline() {
+    public void testOnDrawOver_CallsGetIntrinsicHeightOnce() {
         // Arrange
         Context mockContext = mock(Context.class);
         Drawable mockDrawable = mock(Drawable.class);

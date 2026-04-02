@@ -7,5 +7,5 @@ Also wrote a Mockito based JUnit test to verify the optimization.
 🎯 Why:
 `getIntrinsicHeight()` is a loop-invariant method call, as `mDivider` is an instance constant and doesn't change during the loop iteration. By extracting it out of the loop, we avoid a redundant virtual method call for every child view in the `RecyclerView`, saving CPU cycles in a critical rendering path.
 
-📊 Measured Improvement:
-Using a newly added JUnit test (`testOnDrawOver_PerformanceBaseline`), it was measured that before the optimization, `getIntrinsicHeight()` was invoked `N` times (where `N` is the number of child views in the `RecyclerView`). After the optimization, the method is invoked exactly `1` time, proving a measurable performance improvement by reducing method call overhead.
+📊 Verified Behavior:
+Using a newly added Mockito-based JUnit test (`testOnDrawOver_PerformanceBaseline`), it was verified that before the optimization, `getIntrinsicHeight()` was invoked `N` times (where `N` is the number of child views in the `RecyclerView`), while after the optimization, the method is invoked exactly `1` time. This reduction in invocation count is expected to improve performance by reducing method call overhead in the rendering path.
