@@ -83,4 +83,60 @@ public class XMLDOMParserTest {
         // Test non-existent attribute
         assertEquals("", parser.getNodeAttr("nonexistent", node));
     }
+
+    @Test
+    public void testGetNode() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><child1>value1</child1><child2>value2</child2></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Test exact match
+        Node node1 = parser.getNode("child1", nodes);
+        org.junit.Assert.assertNotNull(node1);
+        assertEquals("child1", node1.getNodeName());
+
+        // Test case-insensitive match
+        Node node2 = parser.getNode("CHILD2", nodes);
+        org.junit.Assert.assertNotNull(node2);
+        assertEquals("child2", node2.getNodeName());
+
+        // Test not found
+        Node node3 = parser.getNode("child3", nodes);
+        assertNull(node3);
+    }
+
+    @Test
+    public void testGetNode_EmptyList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        Node node = parser.getNode("any", nodes);
+        assertNull(node);
+    }
+
+    @Test
+    public void testGetNode_NullTagName() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><child1>value1</child1></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        assertNull(parser.getNode(null, nodes));
+    }
+
+    @Test
+    public void testGetNode_NullNodeList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        assertNull(parser.getNode("child1", null));
+    }
+
 }
