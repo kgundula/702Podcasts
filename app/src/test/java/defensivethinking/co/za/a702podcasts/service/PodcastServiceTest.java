@@ -45,4 +45,28 @@ public class PodcastServiceTest {
         // Verify Log.e was called with the specific tag and message and any exception
         mockedLog.verify(() -> Log.e(eq("PodcastService"), eq("Error handling podcast intent"), any(Exception.class)));
     }
+
+    @Test
+    public void testOnHandleIntent_logsWarningWithoutUrl_whenUnparseableUrl() {
+        PodcastService service = new PodcastService();
+        Intent mockIntent = mock(Intent.class);
+        String untrustedUrl = "malformed-url";
+        when(mockIntent.getStringExtra("url")).thenReturn(untrustedUrl);
+
+        service.onHandleIntent(mockIntent);
+
+        mockedLog.verify(() -> Log.w(eq(PodcastService.podcast), eq("Ignoring intent with unparseable URL")));
+    }
+
+    @Test
+    public void testOnHandleIntent_logsWarningWithoutUrl_whenUntrustedUrl() {
+        PodcastService service = new PodcastService();
+        Intent mockIntent = mock(Intent.class);
+        String untrustedUrl = "https://untrusted.com/podcast.xml";
+        when(mockIntent.getStringExtra("url")).thenReturn(untrustedUrl);
+
+        service.onHandleIntent(mockIntent);
+
+        mockedLog.verify(() -> Log.w(eq(PodcastService.podcast), eq("Ignoring intent with untrusted URL")));
+    }
 }

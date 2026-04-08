@@ -65,12 +65,12 @@ public class PodcastService extends IntentService {
         String host = parsedUri.getHost();
 
         if (scheme == null || scheme.isEmpty() || host == null || host.isEmpty()) {
-            Log.w(podcast, "Ignoring intent with unparseable URL: " + url);
+            Log.w(podcast, "Ignoring intent with unparseable URL");
             return;
         }
 
         if (!"https".equals(scheme) || !"www.omnycontent.com".equals(host)) {
-            Log.w(podcast, "Ignoring intent with untrusted URL: " + url);
+            Log.w(podcast, "Ignoring intent with untrusted URL");
             return;
         }
         String dataXmlStr = "";
