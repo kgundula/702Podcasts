@@ -18,25 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import defensivethinking.co.za.a702podcasts.adapters.PodcastAdapter;
-import defensivethinking.co.za.a702podcasts.databinding.ActivityMainBinding;
 import defensivethinking.co.za.a702podcasts.listener.RecyclerItemClickListener;
 import defensivethinking.co.za.a702podcasts.model.Podcast;
 import defensivethinking.co.za.a702podcasts.service.PodcastService;
 import defensivethinking.co.za.a702podcasts.utility.RecylerViewDividerItemDecoration;
 import defensivethinking.co.za.a702podcasts.utility.Utility;
-import defensivethinking.co.za.a702podcasts.utility.XMLDOMParser;
 
 public class MainActivity extends AppCompatActivity {
     String url = "";
