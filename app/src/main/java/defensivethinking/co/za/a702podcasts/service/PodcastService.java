@@ -117,15 +117,8 @@ public class PodcastService extends IntentService {
                     String podcast_type = "";
                     
                     if (enclosureNode != null) {
-                        NamedNodeMap attrs = enclosureNode.getAttributes();
-                        for (int y = 0; y < attrs.getLength(); y++) {
-                            Node attr = attrs.item(y);
-                            if (attr.getNodeName().equalsIgnoreCase("url")) {
-                                podcast_url = attr.getNodeValue();
-                            } else if (attr.getNodeName().equalsIgnoreCase("type")) {
-                                podcast_type = attr.getNodeValue();
-                            }
-                        }
+                        podcast_url = parser.getNodeAttr("url", enclosureNode);
+                        podcast_type = parser.getNodeAttr("type", enclosureNode);
                     } else {
                         Log.w("PodcastService", "Item has no enclosure tag");
                     }

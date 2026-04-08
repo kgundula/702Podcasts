@@ -96,8 +96,13 @@ public class XMLDOMParser {
 
     public String getNodeAttr(String attrName, Node node ) {
         NamedNodeMap attrs = node.getAttributes();
+        Node attr = attrs.getNamedItem(attrName);
+        if (attr != null) {
+            return attr.getNodeValue();
+        }
+        // Fallback for case-insensitivity
         for (int y = 0; y < attrs.getLength(); y++ ) {
-            Node attr = attrs.item(y);
+            attr = attrs.item(y);
             if (attr.getNodeName().equalsIgnoreCase(attrName)) {
                 return attr.getNodeValue();
             }
