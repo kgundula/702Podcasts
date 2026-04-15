@@ -21,10 +21,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.PodcastService" />
+        <service
+            android:name=".service.PodcastService"
+            android:exported="false" />
 
         <activity
             android:name=".PodcastDetailActivity"
+            android:exported="false"
             android:label="@string/title_activity_podast_detail"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
