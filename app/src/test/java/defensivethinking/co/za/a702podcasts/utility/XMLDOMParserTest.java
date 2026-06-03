@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -91,7 +92,7 @@ public class XMLDOMParserTest {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+        NodeList nodes = doc.getDocumentElement().getChildNodes();
 
         // Test exact match
         Node node1 = parser.getNode("child1", nodes);
@@ -115,7 +116,7 @@ public class XMLDOMParserTest {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+        NodeList nodes = doc.getDocumentElement().getChildNodes();
 
         Node node = parser.getNode("any", nodes);
         assertNull(node);
@@ -128,7 +129,7 @@ public class XMLDOMParserTest {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
-        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+        NodeList nodes = doc.getDocumentElement().getChildNodes();
 
         assertNull(parser.getNode(null, nodes));
     }
@@ -137,6 +138,60 @@ public class XMLDOMParserTest {
     public void testGetNode_NullNodeList() throws Exception {
         XMLDOMParser parser = new XMLDOMParser();
         assertNull(parser.getNode("child1", null));
+    }
+
+    @Test
+    public void testGetNodeValue_WithNodeList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><child1>value1</child1><child2>value2</child2><noText></noText></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Exact match
+        assertEquals("value1", parser.getNodeValue("child1", nodes));
+
+        // Case-insensitive match
+        assertEquals("value2", parser.getNodeValue("CHILD2", nodes));
+
+        // Tag not found
+        assertEquals("", parser.getNodeValue("nonexistent", nodes));
+
+        // Tag found but no text child
+        assertEquals("", parser.getNodeValue("noText", nodes));
+    }
+
+    @Test
+    public void testGetNodeValue_WithNode() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><child>value</child><empty></empty></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+
+        Node childNode = doc.getElementsByTagName("child").item(0);
+        assertEquals("value", parser.getNodeValue(childNode));
+
+        Node emptyNode = doc.getElementsByTagName("empty").item(0);
+        assertEquals("", parser.getNodeValue(emptyNode));
+
+        assertEquals("", parser.getNodeValue(null));
+    }
+
+    @Test
+    public void testGetNodeAttr_WithNodeList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><item id=\"123\"/></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Note: The implementation of getNodeAttr(String, String, NodeList)
+        // searches childNodes for ATTRIBUTE_NODE, which is unusual for standard DOM.
+        // We'll test it as implemented.
+        assertEquals("", parser.getNodeAttr("item", "id", nodes));
     }
 
 }
