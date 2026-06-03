@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             int responseStatus = intent.getIntExtra(PodcastService.STATUS, 0);
 
-            if ( responseStatus == 1  ) {
+            if ( responseStatus == PodcastService.STATUS_FINISHED  ) {
                 podcastList.clear();
                 podcastList.addAll(Utility.podcastCache);
 
