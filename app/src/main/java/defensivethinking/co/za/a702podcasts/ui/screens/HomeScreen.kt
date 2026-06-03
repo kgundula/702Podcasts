@@ -38,7 +38,13 @@ fun HomeScreen(navController: NavController) {
             TopBar()
         }
         item {
-            FeaturedPodcastCard()
+            FeaturedPodcastCard(
+                onListenNow = {
+                    navController.navigate("details/echoes-of-the-digital-frontier") {
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
         item {
             ContinueListeningSection()
@@ -79,7 +85,7 @@ fun TopBar() {
 }
 
 @Composable
-fun FeaturedPodcastCard() {
+fun FeaturedPodcastCard(onListenNow: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,7 +140,7 @@ fun FeaturedPodcastCard() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /* TODO */ },
+                onClick = onListenNow,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text("Listen Now", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Bold)
