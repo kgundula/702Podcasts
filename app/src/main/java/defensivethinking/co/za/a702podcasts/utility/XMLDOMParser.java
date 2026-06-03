@@ -111,16 +111,15 @@ public class XMLDOMParser {
     }
 
     public String getNodeAttr(String tagName, String attrName, NodeList nodes ) {
+        if (nodes == null) {
+            return "";
+        }
         for ( int x = 0; x < nodes.getLength(); x++ ) {
             Node node = nodes.item(x);
             if (node.getNodeName().equalsIgnoreCase(tagName)) {
-                NodeList childNodes = node.getChildNodes();
-                for (int y = 0; y < childNodes.getLength(); y++ ) {
-                    Node data = childNodes.item(y);
-                    if ( data.getNodeType() == Node.ATTRIBUTE_NODE ) {
-                        if ( data.getNodeName().equalsIgnoreCase(attrName) )
-                            return data.getNodeValue();
-                    }
+                String val = getNodeAttr(attrName, node);
+                if (val != null && !val.equals("")) {
+                    return val;
                 }
             }
         }
