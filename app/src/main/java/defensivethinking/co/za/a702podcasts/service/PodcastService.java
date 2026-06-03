@@ -30,16 +30,13 @@ import java.util.List;
  */
 public class PodcastService extends IntentService {
 
-    public static String podcast = PodcastService.class.getSimpleName();
     public static final String STATUS = "status";
-    public static final String RESPONSE_STRING = "response_string";
 
     public static final int STATUS_FINISHED = 1;
-    public static final int STATUS_FAILED = 2;
 
 
     public PodcastService() {
-        super(podcast);
+        super("PodcastService");
     }
 
     /**
@@ -56,7 +53,7 @@ public class PodcastService extends IntentService {
 
         String url = intent.getStringExtra("url");
         if (url == null) {
-            Log.w(podcast, "Ignoring intent with null URL");
+            Log.w(TAG, "Ignoring intent with null URL");
             return;
         }
 
@@ -65,12 +62,12 @@ public class PodcastService extends IntentService {
         String host = parsedUri.getHost();
 
         if (scheme == null || scheme.isEmpty() || host == null || host.isEmpty()) {
-            Log.w(podcast, "Ignoring intent with unparseable URL");
+            Log.w("PodcastService", "Ignoring intent with unparseable URL");
             return;
         }
 
         if (!"https".equals(scheme) || !"www.omnycontent.com".equals(host)) {
-            Log.w(podcast, "Ignoring intent with untrusted URL");
+            Log.w("PodcastService", "Ignoring intent with untrusted URL");
             return;
         }
         String dataXmlStr = "";
