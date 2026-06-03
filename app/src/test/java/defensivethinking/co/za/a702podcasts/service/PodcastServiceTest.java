@@ -67,6 +67,6 @@ public class PodcastServiceTest {
 
         service.onHandleIntent(mockIntent);
 
-        mockedLog.verify(() -> Log.w(eq("PodcastService"), eq("Ignoring intent with untrusted URL")));
+        mockedLog.verify(() -> Log.w(eq(PodcastService.TAG), eq("Ignoring intent with untrusted URL")));
     }
 }
