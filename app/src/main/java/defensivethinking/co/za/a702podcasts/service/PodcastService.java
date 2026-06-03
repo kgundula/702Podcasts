@@ -53,7 +53,7 @@ public class PodcastService extends IntentService {
 
         String url = intent.getStringExtra("url");
         if (url == null) {
-            Log.w("PodcastService", "Ignoring intent with null URL");
+            Log.w(TAG, "Ignoring intent with null URL");
             return;
         }
 
