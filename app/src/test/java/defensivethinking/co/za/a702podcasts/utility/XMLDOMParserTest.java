@@ -139,4 +139,60 @@ public class XMLDOMParserTest {
         assertNull(parser.getNode("child1", null));
     }
 
+    @Test
+    public void testGetNodeAttr_ThreeArgs() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><item id=\"123\" category=\"podcast\">content</item></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Test exact tag and attribute match
+        assertEquals("123", parser.getNodeAttr("item", "id", nodes));
+
+        // Test case-insensitive tag name match
+        assertEquals("123", parser.getNodeAttr("ITEM", "id", nodes));
+
+        // Test case-insensitive attribute name match
+        assertEquals("123", parser.getNodeAttr("item", "ID", nodes));
+
+        // Test another attribute
+        assertEquals("podcast", parser.getNodeAttr("item", "category", nodes));
+
+        // Test non-existent attribute
+        assertEquals("", parser.getNodeAttr("item", "nonexistent", nodes));
+
+        // Test non-existent tag name
+        assertEquals("", parser.getNodeAttr("nonexistent", "id", nodes));
+
+        // Test null NodeList
+        assertEquals("", parser.getNodeAttr("item", "id", null));
+    }
+
+    @Test
+    public void testGetNodeAttr_ThreeArgs_EmptyList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        assertEquals("", parser.getNodeAttr("item", "id", nodes));
+    }
+
+    @Test
+    public void testGetNodeAttr_ThreeArgs_MultipleNodes() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        // First 'item' has no 'id', second 'item' has 'id'.
+        String xml = "<root><item>first</item><item id=\"456\">second</item></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        assertEquals("456", parser.getNodeAttr("item", "id", nodes));
+    }
+
 }
