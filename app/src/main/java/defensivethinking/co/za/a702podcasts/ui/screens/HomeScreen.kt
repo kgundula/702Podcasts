@@ -81,7 +81,7 @@ fun TopBar() {
 }
 
 @Composable
-fun FeaturedPodcastCard(onListenNow: () -> Unit) {
+fun FeaturedPodcastCard(onListenNow: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
