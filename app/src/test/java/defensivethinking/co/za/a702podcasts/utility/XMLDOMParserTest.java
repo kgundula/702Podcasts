@@ -139,4 +139,54 @@ public class XMLDOMParserTest {
         assertNull(parser.getNode("child1", null));
     }
 
+    @Test
+    public void testGetNodeValue_WithNodeList() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><item>value1</item><ITEM2>value2</ITEM2></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Test exact match
+        assertEquals("value1", parser.getNodeValue("item", nodes));
+
+        // Test case-insensitive match
+        assertEquals("value2", parser.getNodeValue("item2", nodes));
+    }
+
+    @Test
+    public void testGetNodeValue_WithNodeList_NotFound() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><item>value1</item></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        assertEquals("", parser.getNodeValue("nonexistent", nodes));
+    }
+
+    @Test
+    public void testGetNodeValue_WithNodeList_NoText() throws Exception {
+        XMLDOMParser parser = new XMLDOMParser();
+        String xml = "<root><empty></empty><noText><child/></noText></root>";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        org.w3c.dom.NodeList nodes = doc.getDocumentElement().getChildNodes();
+
+        // Empty tag
+        assertEquals("", parser.getNodeValue("empty", nodes));
+
+        // Tag with no text node (only element node)
+        assertEquals("", parser.getNodeValue("noText", nodes));
+    }
+
+    @Test
+    public void testGetNodeValue_WithNodeList_NullNodeList() {
+        XMLDOMParser parser = new XMLDOMParser();
+        assertEquals("", parser.getNodeValue("item", null));
+    }
+
 }
