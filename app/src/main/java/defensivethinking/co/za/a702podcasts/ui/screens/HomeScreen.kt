@@ -39,7 +39,11 @@ fun HomeScreen(navController: NavController) {
         }
         item {
             FeaturedPodcastCard(
-                onListenNow = { navController.navigate("details/echoes-of-the-digital-frontier") }
+                onListenNow = {
+                    navController.navigate("details/echoes-of-the-digital-frontier") {
+                        launchSingleTop = true
+                    }
+                }
             )
         }
         item {
