@@ -55,7 +55,7 @@ public class PodcastServiceTest {
 
         service.onHandleIntent(mockIntent);
 
-        mockedLog.verify(() -> Log.w(eq("PodcastService"), eq("Ignoring intent with unparseable URL")));
+        mockedLog.verify(() -> Log.w(eq(PodcastService.TAG), eq("Ignoring intent with unparseable URL")));
     }
 
     @Test
