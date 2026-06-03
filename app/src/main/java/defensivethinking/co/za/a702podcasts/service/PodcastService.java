@@ -82,6 +82,8 @@ public class PodcastService extends IntentService {
             Document doc = null;
             try (InputStream inputStream = con.getInputStream()) {
                 doc = parser.getDocument(inputStream);
+            } finally {
+                con.disconnect();
             }
 
             List<Podcast> podcastList = new ArrayList<>();
