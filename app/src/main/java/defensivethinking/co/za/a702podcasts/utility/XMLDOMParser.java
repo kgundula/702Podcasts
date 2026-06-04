@@ -80,6 +80,9 @@ public class XMLDOMParser {
     }
 
     public String getNodeValue(String tagName, NodeList nodes ) {
+        if (nodes == null) {
+            return "";
+        }
         for ( int x = 0; x < nodes.getLength(); x++ ) {
             Node node = nodes.item(x);
             if (node.getNodeName().equalsIgnoreCase(tagName)) {
